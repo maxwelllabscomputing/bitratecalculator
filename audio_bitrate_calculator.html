@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio Bitrate Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    select {
+        width: 200px;
+        margin-bottom: 10px;
+    }
+    #output {
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<label for="sampleRate">Sample Rate:</label>
+<select id="sampleRate" onchange="calculateBitrate()">
+    <option value="1">1 Hz</option>
+    <option value="10">10 Hz</option>
+    <option value="100">100 Hz</option>
+    <option value="1000">1 kHz</option>
+    <option value="2000">2 kHz</option>
+    <option value="3000">3 kHz</option>
+    <option value="4000">4 kHz</option>
+    <option value="6000">6 kHz</option>
+    <option value="8000">8 kHz</option>
+    <option value="12000">12 kHz</option>
+    <option value="16000">16 kHz</option>
+    <option value="22050">22.05 kHz</option>
+    <option value="24000">24 kHz</option>
+    <option value="32000">32 kHz</option>
+    <option value="44100" selected>44.1 kHz (CD)</option>
+    <option value="48000">48 kHz</option>
+    <option value="64000">64 kHz</option>
+    <option value="88200">88.2 kHz</option>
+    <option value="96000">96 kHz</option>
+    <option value="128000">128 kHz</option>
+    <option value="176400">176.4 kHz</option>
+    <option value="192000">192 kHz</option>
+    <option value="256000">256 kHz</option>
+    <option value="352800">352.8 kHz</option>
+    <option value="384000">384 kHz</option>
+    <option value="512000">512 kHz</option>
+    <option value="705600">705.6 kHz</option>
+    <option value="768000">768 kHz</option>
+    <option value="1024000">1024 kHz</option>
+    <option value="2822400">2.8224 Mhz (DSD64)</option>
+    <option value="5644800">5.6448 Mhz (DSD128)</option>
+    <option value="11289600">11.2896 Mhz (DSD256)</option>
+    <option value="22579200">22.5792 Mhz (DSD512)</option>
+    <option value="45158400">45.1584 Mhz (DSD1024)</option>
+    <option value="90316800">90.3168 Mhz (DSD2048)</option>
+    <option value="4300000000">4.3 GHz (maximum)</option>
+</select>
+
+<label for="bitDepth">Bit Depth (Word Length):</label>
+<select id="bitDepth" onchange="calculateBitrate()">
+    <option value="1">1-bit</option>
+    <option value="2">2-bit</option>
+    <option value="3">3-bit</option>
+    <option value="4">4-bit</option>
+    <option value="6">6-bit</option>
+    <option value="8">8-bit</option>
+    <option value="10">10-bit</option>
+    <option value="12">12-bit</option>
+    <option value="16" selected>16-bit (CD)</option>
+    <option value="20">20-bit</option>
+    <option value="24">24-bit</option>
+    <option value="32">32-bit</option>
+    <option value="64">64-bit</option>
+    <option value="128">128-bit (maximum)</option>
+</select>
+
+<label for="channels">Channels:</label>
+<select id="channels" onchange="calculateBitrate()">
+    <option value="1">1 (mono)</option>
+    <option value="2" selected>2 (stereo)</option>
+    <option value="3">3</option>
+    <option value="4">4 (quad)</option>
+    <option value="5">5</option>
+    <option value="6">6 (5:1)</option>
+    <option value="7">7</option>
+    <option value="8">8 (7:1)</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+    <option value="14">14</option>
+    <option value="15">15</option>
+    <option value="16">16</option>
+    <option value="17">17</option>
+    <option value="18">18</option>
+    <option value="19">19</option>
+    <option value="20">20</option>
+    <option value="21">21</option>
+    <option value="22">22</option>
+    <option value="23">23</option>
+    <option value="24">24</option>
+    <option value="25">25</option>
+    <option value="26">26</option>
+    <option value="27">27</option>
+    <option value="28">28</option>
+    <option value="29">29</option>
+    <option value="30">30</option>
+    <option value="31">31</option>
+    <option value="32">32</option>
+    <option value="33">33</option>
+    <option value="34">34</option>
+    <option value="35">35</option>
+    <option value="36">36</option>
+    <option value="37">37</option>
+    <option value="38">38</option>
+    <option value="39">39</option>
+    <option value="40">40</option>
+    <option value="41">41</option>
+    <option value="42">42</option>
+    <option value="43">43</option>
+    <option value="44">44</option>
+    <option value="45">45</option>
+    <option value="46">46</option>
+    <option value="47">47</option>
+    <option value="48">48</option>
+    <option value="49">49</option>
+    <option value="50">50</option>
+    <option value="51">51</option>
+    <option value="52">52</option>
+    <option value="53">53</option>
+    <option value="54">54</option>
+    <option value="55">55</option>
+    <option value="56">56</option>
+    <option value="57">57</option>
+    <option value="58">58</option>
+    <option value="59">59</option>
+    <option value="60">60</option>
+    <option value="61">61</option>
+    <option value="62">62</option>
+    <option value="63">63</option>
+    <option value="64">64</option>
+    <option value="128">128</option>
+    <option value="256">256</option>
+    <option value="512">512</option>
+    <option value="1024">1024</option>
+    <option value="2048">2048</option>
+    <option value="4096">4096</option>
+    <option value="8192">8192</option>
+    <option value="16384">16384</option>
+    <option value="32768">32768</option>
+    <option value="65535">65535 (maximum)</option>
+</select>
+
+<div id="output">Bitrate: 1411.2 kbps</div>
+
+<br />
+
+<button onclick="resetInputs()">Reset</button>
+
+<script>
+function calculateBitrate() {
+    var sampleRate = parseFloat(document.getElementById("sampleRate").value);
+    var bitDepth = parseFloat(document.getElementById("bitDepth").value);
+    var channels = parseFloat(document.getElementById("channels").value);
+    
+    var bitrate = (sampleRate * bitDepth * channels) / 1000;
+    
+    document.getElementById("output").textContent = "Bitrate: " + bitrate + " kbps";
+}
+
+function resetInputs() {
+    document.getElementById("sampleRate").value = "44100";
+    document.getElementById("bitDepth").value = "16";
+    document.getElementById("channels").value = "2";
+    
+    calculateBitrate();
+}
+
+calculateBitrate(); // Calculate bitrate initially
+</script>
+
+</body>
+</html>
